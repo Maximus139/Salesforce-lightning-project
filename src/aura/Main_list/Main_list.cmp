@@ -1,0 +1,17 @@
+<aura:component controller="ProductsListController" implements="forceCommunity:availableForAllPageTypes">
+    
+    <aura:attribute name = "products" type = "Product__c[]" />
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:handler event="c:createOrder"
+        action="{!c.handlecreateOrder}"/>
+        <lightning:layout multipleRows="true">
+    
+            <aura:iteration items="{!v.products}" var="item">
+                <lightning:layoutItem flexibility="auto" size="4" largeDeviceSize="4">
+                    <c:Product_List_Item item="{!item}"/>
+                </lightning:layoutItem>
+            </aura:iteration>
+    
+     </lightning:layout>
+</aura:component>

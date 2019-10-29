@@ -1,0 +1,17 @@
+<!--
+ - Created by Макс on 29.10.2019.
+ -->
+
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    <div class="slds-grid">
+        <div class="slds-col slds-size_3-of-12">
+            <span></span>
+        </div>
+        <div class="slds-col slds-size_6-of-12">
+            <c:Main_list />
+        </div>
+        <div class="slds-col slds-size_3-of-12">
+            <c:Bucket />
+        </div>
+    </div>
+</aura:component>

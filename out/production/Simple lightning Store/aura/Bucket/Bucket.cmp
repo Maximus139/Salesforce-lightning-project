@@ -1,0 +1,64 @@
+<aura:component controller="MarketController" >
+    <aura:attribute name="totalPrice" type="Integer" default="0" />
+    <aura:attribute name="orderItems" type="OrderItem__c[]" />
+    
+    <aura:handler event="c:addToOrder"
+        action="{!c.handleAddToOrder}"/>
+    <aura:handler name="RemoveFromOrder" event="c:removeFromOrder"
+		action="{!c.handleRemoveFromOrder}" />
+    
+    <div style="height:14rem;position:relative;margin-left:1rem">
+        <button  class="slds-button slds-button_icon" title="Show Bucket" onclick="{!c.showBucket}">
+            <lightning:icon iconName="utility:cart" alternativeText="Show Bucket"></lightning:icon>
+        </button>
+        <div aura:id="page total price">
+            <span>Total price: <lightning:formattedNumber value="{!v.totalPrice}" style="currency"/></span>
+        </div>
+        <section aria-describedby="dialog-body-id-18" aria-label="Your bucket" class="slds-popover slds-nubbin_top-left slds-dynamic-menu slds-hide" aura:id="Bucket"
+            role="dialog" style="position:absolute;left:-0.5rem;top:48px">
+            <div class="slds-popover__body slds-p-horizontal_none" id="dialog-body-id-18">
+                <div id="listbox-unique-id" role="listbox">
+                    <ul class="slds-listbox slds-listbox_vertical slds-dropdown_length-10" role="group" aria-label="Bucket">
+                        <li role="presentation" class="slds-listbox__item">
+                            <div class="slds-media slds-listbox__option slds-listbox__option_plain" role="presentation">
+                                <h2 class="slds-listbox__option-header" role="presentation">Bucket:</h2>
+                            </div>
+                        </li>
+                        <aura:iteration items="{!v.orderItems}" var="item" >
+                            <c:Bucket_item bucketItem="{!item}" />
+                        </aura:iteration>
+                        <li>
+                            <div class="slds-media slds-listbox__option slds-listbox__option_plain" role="presentation">
+                                <h3>
+                                    Total price: <lightning:formattedNumber value="{!v.totalPrice}" style="currency"/>
+                                </h3>
+                            </div>
+                        </li>
+                     
+            			<li>
+                            <div class="slds-media slds-listbox__option slds-listbox__option_plain" role="presentation">
+                                <aura:if isTrue="{!not(empty(v.orderItems))}">
+                                    <lightning:button variant="success" onclick="{!c.saveOrder}">
+                                        Confirm order
+                                    </lightning:button>
+                                <aura:set attribute="else">
+                                   <lightning:button variant="success">
+                                        Confirm order
+                                   </lightning:button>
+                                </aura:set>
+                                </aura:if>
+                            </div>
+                        </li>
+                     </ul>
+                </div>
+            </div>
+            <footer class="slds-popover__footer">
+              <ul>
+                <li>
+                    <a onclick="{!c.clearAll}"><lightning:icon iconName="utility:delete" size="x-small" /> Clear all </a>
+                </li>
+              </ul>
+            </footer>
+        </section>
+	</div> 
+</aura:component>
